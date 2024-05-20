@@ -18,7 +18,9 @@ const props = defineProps({
 const shortlink = props.shortlink;
 
 const formData = {
-    is_disabled: true
+    is_disabled: true,
+    url: shortlink.url,
+    destination: shortlink.destination,
 };
 
 const form = useForm(formData);
@@ -27,10 +29,9 @@ const saveLink = () => {
     console.log('Save link');
     console.log('Form: ', form.data());
 
-    router.put(route('shortlinks.update', shortlink.value.id), form.data(), {
+    router.put(route('shortlinks.update', shortlink.id), form.data(), {
         onSuccess: () => {
             form.reset();
-            closeDialog();
             toast.success('Short link has been disabled', {
             });
         },
@@ -66,11 +67,18 @@ const customUrl = ref(false);
                     link?
                 </p>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <button type="submit"
-                            class="ml-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-[#1E2228] bg-[#FD0] hover:bg-[#1E2228] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FD0]">
-                        {{ shortlink.is_disabled === true ? 'Enable' : 'Disable' }}
-                    </button>
+                    <AlertDialogCancel>
+                        <button type="button" @click="closeDialog"
+                                class="ml-1 inline-flex justify-center py-2 px-4 border-2 border-[#1E2228] shadow-sm text-sm font-medium rounded-md text-[#1E2228] hover:bg-[#1E2228] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FD0]">
+                            Cancel
+                        </button>
+                    </AlertDialogCancel>
+                    <AlertDialogCancel>
+                        <button type="submit"
+                                class="ml-1 inline-flex justify-center py-2 px-4 border-2 border-transparent shadow-sm text-sm font-medium rounded-md text-[#1E2228] bg-[#FD0] hover:bg-[#1E2228] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FD0]">
+                            {{ shortlink.is_disabled === true ? 'Enable' : 'Disable' }}
+                        </button>
+                    </AlertDialogCancel>
                 </AlertDialogFooter>
             </form>
         </AlertDialogContent>

@@ -122,8 +122,8 @@ const statisticsCount = (shortlink) => {
                             {{ shortlink.expires_at ? dateFormat(shortlink.expires_at) : 'Never' }}
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            <IconCircleCheck :stroke="2" class="h-5 w-5 text-green-500" aria-hidden="true" v-if="shortlink.disabled"/>
-                            <IconX :stroke="2" class="h-5 w-5 text-red-500" aria-hidden="true" v-else/>
+                            <IconCircleCheck :stroke="2" class="h-5 w-5 text-green-500" aria-hidden="true" v-if="shortlink.is_disabled"/>
+                            <IconX :stroke="2" class="h-5 w-5 text-red-500" aria-hidden="true" v-else-if="!shortlink.is_disabled"/>
                         </td>
                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                             {{ statisticsCount(shortlink) }}
