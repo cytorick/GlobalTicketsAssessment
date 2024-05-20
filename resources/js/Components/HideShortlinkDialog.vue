@@ -18,7 +18,7 @@ const props = defineProps({
 const shortlink = props.shortlink;
 
 const formData = {
-    is_disabled: true,
+    is_disabled: shortlink.is_disabled === true ? false : true,
     url: shortlink.url,
     destination: shortlink.destination,
 };
@@ -32,7 +32,7 @@ const saveLink = () => {
     router.put(route('shortlinks.update', shortlink.id), form.data(), {
         onSuccess: () => {
             form.reset();
-            toast.success('Short link has been disabled', {
+            toast.success('Short link has been updated', {
             });
         },
         onError: (errors) => {

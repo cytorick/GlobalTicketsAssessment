@@ -61,16 +61,20 @@ class ApiController extends Controller
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        $request->validate([
-            'url' => 'required|url',
-            'title' => 'required',
+        $validation = $request->validate([
+            'url' => 'nullable|url',
+            'title' => 'nullable',
             'expires_at' => 'nullable|date',
         ]);
 
+        if ($shortlink->statistics->count() > 0) {
+            return response()->json(['error' => 'Cannot update shortlink with clicks'], 400);
+        }
+
         $shortlink->update([
-            'url' => $request->url,
-            'title' => $request->title,
-            'expires_at' => $request->expires_at,
+            'url' => $request->url ?? $shortlink->url,
+            'title' => $request->title ?? $shortlink->title,
+            'expires_at' => $request->expires_at ?? $shortlink->expires_at,
         ]);
 
         return response()->json($shortlink);
