@@ -1,13 +1,16 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
 import Card from '@/Components/Card.vue';
 import LinksTable from '@/Components/LinksTable.vue';
-import UserInformation from '@/Components/UserInformation.vue';
+import { defineProps } from 'vue';
+
+defineProps({
+    shortlinks: Array,
+});
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Dashboard" active="Dashboard">
         <div class="grid grid-cols-4 gap-4">
             <Card class="col-span-4">
                 <h1 class="text-2xl text-gray-800">
@@ -18,7 +21,7 @@ import UserInformation from '@/Components/UserInformation.vue';
                 </p>
             </Card>
             <Card class="col-span-3">
-                <LinksTable/>
+                <LinksTable :shortlinks="shortlinks"/>
             </Card>
             <Card class="col-span-1">
                 <p>
@@ -62,7 +65,7 @@ import UserInformation from '@/Components/UserInformation.vue';
                         </li>
                     </ul>
                     <p class="mt-4">
-                        Example application created by <a href="https://linkedin/cytorick" class="text-blue-500 hover:underline" target="_blank">Rick Visser</a>.
+                        Example application created by <a href="https://linkedin/in/cytorick" class="text-blue-500 hover:underline" target="_blank">Rick Visser</a>.
                     </p>
                 </p>
             </Card>

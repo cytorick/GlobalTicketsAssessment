@@ -1,19 +1,17 @@
 <script setup>
 // Import all the necessary components
-import {ref} from 'vue';
-import {Head, Link, router} from '@inertiajs/vue3';
-import Banner from '@/Components/Banner.vue'
-import MenuLayout from '@/Components/MenuLayout.vue'
-import { Toaster } from '@/shadcn/ui/sonner'
+import { onMounted, ref, watch } from 'vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import Banner from '@/Components/Banner.vue';
+import MenuLayout from '@/Components/MenuLayout.vue';
+import { Toaster } from '@/shadcn/ui/sonner';
+import { toast } from 'vue-sonner'
 
 // Define the props for the AppLayout component
 defineProps({
     title: String,
+    active: String,
 });
-
-// Define the reactive variables
-const showingNavigationDropdown = ref(false);
-
 const logout = () => {
     router.post(route('logout'));
 };
@@ -21,14 +19,14 @@ const logout = () => {
 
 <template>
     <!-- Import the Toaster component from the Sonner UI package -->
-    <Toaster />
+    <Toaster richColors />
 
     <div>
         <!-- Feeding the head of the app.blade.php file with the title prop -->
         <Head :title="title"/>
 
         <!-- Import the MenuLayout component -->
-        <MenuLayout :title="title">
+        <MenuLayout :title="title" :active="active">
             <slot/>
         </MenuLayout>
 
