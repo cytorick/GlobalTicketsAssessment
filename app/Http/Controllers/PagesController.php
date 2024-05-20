@@ -8,17 +8,18 @@ use Inertia\Inertia;
 
 class PagesController extends Controller
 {
+    // Render the dashboard page with the shortlinks
     public function RenderDashboard()
     {
         return Inertia::render('Dashboard', [
             'shortlinks' => Shortlink::where('user_id', auth()->id())
             ->with('statistics')
             ->orderBy('created_at', 'desc')
-            ->take(5)
             ->get(),
         ]);
     }
 
+    // Render the documentation page
     public function RenderDocumentation()
     {
         return Inertia::render('Documentation');

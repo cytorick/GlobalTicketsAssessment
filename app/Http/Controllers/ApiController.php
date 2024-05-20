@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    // Login API Route
     public function login(Request $request)
     {
         $request->validate([
@@ -21,6 +22,7 @@ class ApiController extends Controller
         return response()->json(auth()->user());
     }
 
+    // Shortlink API Routes
     public function getShortlinks()
     {
         $shortlinks = Shortlink::where('user_id', auth()->id())->get();
@@ -28,6 +30,7 @@ class ApiController extends Controller
         return response()->json($shortlinks);
     }
 
+    // Create shortlink API Route
     public function createShortlink(Request $request)
     {
         $request->validate([
@@ -46,6 +49,7 @@ class ApiController extends Controller
         return response()->json($shortlink);
     }
 
+    // Get shortlink API Route
     public function getShortlink(Shortlink $shortlink)
     {
         if ($shortlink->user_id !== auth()->id()) {
@@ -55,6 +59,7 @@ class ApiController extends Controller
         return response()->json($shortlink);
     }
 
+    // Update shortlink API Route
     public function updateShortlink(Request $request, Shortlink $shortlink)
     {
         if ($shortlink->user_id !== auth()->id()) {
@@ -80,6 +85,7 @@ class ApiController extends Controller
         return response()->json($shortlink);
     }
 
+    // Delete shortlink API Route
     public function deleteShortlink(Shortlink $shortlink)
     {
         if ($shortlink->user_id !== auth()->id()) {
@@ -91,6 +97,7 @@ class ApiController extends Controller
         return response()->json(['message' => 'Shortlink deleted']);
     }
 
+    // Get shortlink clicks API Route
     public function getShortlinkClicks(Shortlink $shortlink)
     {
         if ($shortlink->user_id !== auth()->id()) {

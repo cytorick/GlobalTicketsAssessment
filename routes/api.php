@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ApiController;
 
+// Auth routes
 Route::post('/login', [ApiController::class, 'login']);
 
+// Shortlink routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/shortlinks', [ApiController::class, 'getShortlinks']);
     Route::post('/shortlinks', [ApiController::class, 'createShortlink']);
